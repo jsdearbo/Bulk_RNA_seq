@@ -4,15 +4,17 @@
 STAR=/usr/bin/STAR
 REF_GENOME=/bobross/STAR_Metadata/mouse/STAR
 
-# Set the input directory containing the fastq files
-INPUT_DIR=/bobross/jdearborn/analysis/in_vitro_dep_2/data/fastq
-#INPUT_DIR=./data
+# Prompt the user for the input directory containing the fastq files
+read -p "Enter the global path to the input directory containing the fastq files (for example: '/bobross/jdearborn/RNA_seq/fastq'): " INPUT_DIR
 
-# Set the output directory
-OUTPUT_DIR=/bobross/jdearborn/analysis/in_vitro_dep_2/data/alignment
+# Set the output directory to "alignment" in the parent directory of $INPUT_DIR
+OUTPUT_DIR="$(dirname "$INPUT_DIR")/alignment"
 
 # Set the temporary directory
-TMP_DIR=/bobross/jdearborn/analysis/in_vitro_dep_2/data/tmp
+TMP_DIR="$(dirname "$INPUT_DIR")/alignment/tmp"
+
+# Create the output and temporary directory if it does not exist
+mkdir -p "$TMP_DIR"
 
 # Loop over the fastq files in the input directory
 for file in "$INPUT_DIR"/*_R1_001.fastq; do
