@@ -15,13 +15,15 @@ OUTPUT_DIR=/bobross/jdearborn/analysis/in_vitro_dep_2/data/alignment
 TMP_DIR=/bobross/jdearborn/analysis/in_vitro_dep_2/data/tmp
 
 # Loop over the fastq files in the input directory
-for file in $INPUT_DIR/*_R1.fastq; do
+for file in "$INPUT_DIR"/*_R1_001.fastq; do
   # Get the sample name from the file name
-  sample=$(basename "$file" _R1.fastq)
+  sample=$(basename "$file" _R1_001.fastq)
 
   # Set the paths to the read 1 and read 2 files
-  r1="$INPUT_DIR/${sample}_R1.fastq"
-  r2="$INPUT_DIR/${sample}_R2.fastq"
+  r1="$INPUT_DIR/${sample}_R1_001.fastq"
+  r2="$INPUT_DIR/${sample}_R2_001.fastq"
+
+  printf "Processing sample %s\n" "$sample"
 
   # Remove the temporary directory if it exists
   if [ -d "$TMP_DIR" ]; then
@@ -29,11 +31,14 @@ for file in $INPUT_DIR/*_R1.fastq; do
   fi
 
   # Run STAR alignment
-  $STAR \
+  if ! "$STAR" \
     --runThreadN 32 \
-    --genomeDir $REF_GENOME \
-    --readFilesIn $r1 $r2 \
-    --outFileNamePrefix $OUTPUT_DIR/${sample}_aligned_reads_ \
+    --genomeDir "$REF_GENOME" \
+    --readFilesIn "$r1" "$r2" \
+    --outFileNamePrefix "$OUTPUT_DIR/${sample}_aligned_reads_" \
     --outSAMtype BAM SortedByCoordinate \
-    --outTmpDir $TMP_DIR
+    --outTmpDir "$TMP_DIR"; then
+    printf "Error: STAR alignment failed for sample %s\n" "$sample"
+    exit 1
+  fi
 done
