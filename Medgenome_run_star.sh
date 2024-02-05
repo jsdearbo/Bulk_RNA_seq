@@ -20,6 +20,7 @@ TMP_DIR="$(dirname "$INPUT_DIR")/alignment/tmp"
 
 # Create the output and temporary directory if it does not exist
 mkdir -p "$TMP_DIR"
+mkdir -p "$OUTPUT_DIR"
 
 # Loop over the fastq files in the input directory
 for file in "$INPUT_DIR"/*_R1.fastq; do
