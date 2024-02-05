@@ -2,7 +2,12 @@
 
 # Set the paths to STAR and the reference genome
 STAR=/usr/bin/STAR
-REF_GENOME=/bobross/STAR_Metadata/mouse/STAR
+# Previously used genome
+# REF_GENOME=/bobross/STAR_Metadata/mouse/STAR
+# Genome update
+REF_GENOME=/bobross/jdearborn/20240108_STAR_Index/ref
+
+
 
 # Prompt the user for the input directory containing the fastq files
 read -p "Enter the global path to the input directory containing the fastq files (for example: '/bobross/jdearborn/RNA_seq/fastq'): " INPUT_DIR
