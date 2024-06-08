@@ -2,12 +2,22 @@
 
 # Set the paths to STAR and the reference genome
 STAR=/usr/bin/STAR
-REF_GENOME=/bobross/STAR_Metadata/human/STAR
+
+# Set Reference genome based on species input from pipeline.sh
+if [ "$2" = "mouse" ]; then
+  REF_GENOME=/bobross/STAR_Metadata/mouse/STAR
+elif [ "$2" = "human" ]; then
+  REF_GENOME=/bobross/STAR_Metadata/human/STAR
+else
+  echo "No reference genome set"
+fi
+
+echo "Reference Genome Path: $REF_GENOME"
 
 # Set directories
-INPUT_DIR="/bobross/sylvester/IFI16_KO_data/20240605/fastq" # input fastq files
-OUTPUT_DIR="/bobross/sylvester/IFI16_KO_data/20240605/bam" # output bam files
-STAR_LOG_DIR="/bobross/sylvester/IFI16_KO_data/20240605/star_logs" # STAR log output files
+INPUT_DIR="$1/fastq"
+OUTPUT_DIR="$1/bam" # output bam files
+STAR_LOG_DIR="$1/star_logs" # STAR log output files
 
 # Create the output and STAR logs directories if they don't exist
 mkdir -p "$OUTPUT_DIR"

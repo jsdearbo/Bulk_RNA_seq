@@ -1,16 +1,20 @@
 #!/bin/bash
 
 # Set directories
-bam_folder="/bobross/sylvester/IFI16_KO_data/20240605/bam"  
-output_folder="/bobross/sylvester/IFI16_KO_data/20240605/feature_counts/batched" # counts files output directory
-summary_folder="/bobross/sylvester/IFI16_KO_data/20240605/feature_counts/summaries"
+bam_folder="$1/bam"  
+output_folder="$1/feature_counts/batched" # counts files output directory
+summary_folder="$output_folder/summaries"
 
-# Set input annotation file
-# gtf_file="/bobross/STAR_Metadata/mouse/gencode.vM30.annotation.gtf"  # for mouse
-gtf_file="/bobross/STAR_Metadata/human/gencode.v46.primary_assembly.annotation.gtf"   # for human (basic annotation)
+# Set Reference annotation file based on species input from pipeline.sh
+if [ "$2" = "mouse" ]; then
+  gtf_file=/bobross/STAR_Metadata/mouse/gencode.vM30.annotation.gtf
+elif [ "$2" = "human" ]; then
+  gtf_file=/bobross/STAR_Metadata/human/gencode.v46.primary_assembly.annotation.gtf
+else
+  echo "No reference genome set"
+fi
 
-# Set condition
-treatment="OC43"
+echo "Reference Genome Path: $REF_GENOME"
 
 # Make sure the output folders exist (create, if not)
 mkdir -p "$output_folder"
@@ -41,7 +45,10 @@ featureCounts \
   -Q 30 \
   -p \
   -a "$gtf_file" \
-  -o "$output_folder/${treatment}_counts.txt" \
+  -o "$output_folder/all_sample_counts.txt" \
   "${bam_files[@]}"
   
 # Note that this will generate a single counts matrix for all samples. each sample will have it's own count column
+
+# move summary files
+mv "$output_folder"/*.summary "$summary_folder"

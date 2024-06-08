@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Set the directory containing the files
-INPUT_DIR="/bobross/sylvester/IFI16_KO_data/20240605/fastq"
-#INPUT_DIR="/bobross/jdearborn/PIP_seeker/20240605_PIP03_04/PIP03/ADT_fastq"
+INPUT_DIR="$1/fastq"
 
 # Loop through all files ending with _001.fastq.gz
 for file in "$INPUT_DIR"/*_001.fastq.gz
