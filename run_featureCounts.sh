@@ -25,3 +25,4 @@ mkdir -p "$output_folder"
     $bam_folder/*.bam
 
 # Note that this will generate a single counts matrix for all samples. each sample will have it's own count column
+

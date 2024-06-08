@@ -7,3 +7,4 @@
 for file in *.fastq.gz; do 
 	fastqc "$file"
 done 
+
