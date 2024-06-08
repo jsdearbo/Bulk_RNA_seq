@@ -1,0 +1,14 @@
+Please enter the directory path to the fastq directory within your dedicated experiment directory:
+./pipeline.sh: line 8: read: read error: 0: Bad file descriptor
+Error: The provided path is not a valid directory.
+touch: cannot touch '/rename_fastqs.log': Permission denied
+Running rename_fastqs.sh...
+/bobross/jdearborn/shell_scripts/Bulk_RNA_seq/pipeline/run_pipeline.sh: line 23: /rename_fastqs.log: Permission denied
+rename_fastqs.sh completed.
+Skipping FastQC run.
+Running star_loop.sh...
+/bobross/jdearborn/shell_scripts/Bulk_RNA_seq/pipeline/run_pipeline.sh: line 37: /star_loop.log: Permission denied
+star_loop.sh completed.
+Running run_featureCounts_batched.sh...
+/bobross/jdearborn/shell_scripts/Bulk_RNA_seq/pipeline/run_pipeline.sh: line 42: /run_featureCounts.log: Permission denied
+run_featureCounts_batched.sh completed.
