@@ -4,7 +4,7 @@
 # The program will decompress .gz files on-th-fly.
 
 # Set Input Directory
-INPUT_DIR="$1/fastq" # provided by pipeline.sh
+INPUT_DIR="$1" # provided by pipeline.sh
 
 # Create and set an outut directory
 OUTPUT_DIR="$INPUT_DIR/fastqc_output"

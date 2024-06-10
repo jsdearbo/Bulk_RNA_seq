@@ -7,7 +7,7 @@
 echo "Please enter the directory path to the fastq directory within your dedicated experiment directory:"
 read -e -p "directory path: " file_path
 
-PIPELINE_LAUNCH="/bobross/jdearborn/shell_scripts/Bulk_RNA_seq/pipeline/run_pipeline.sh"
+PIPELINE_LAUNCH="/bobross/jdearborn/shell_scripts/Bulk_RNA_seq/pipeline/2_run_pipeline.sh"
 
 if [ -d "$file_path" ]; then
     echo "The directory path is: $file_path"
@@ -60,7 +60,7 @@ if [ -d "$file_path" ]; then
     mkdir -p "$LOG_DIR"
 
     # Run the pipeline function with nohup
-    nohup bash "$PIPELINE_LAUNCH" "$RUN_QC" "$GENOME" "$EXPERIMENT_DIR" "$LOG_DIR" > "$LOG_DIR/pipeline.log" 2>&1 
+    nohup bash "$PIPELINE_LAUNCH" "$RUN_QC" "$GENOME" "$EXPERIMENT_DIR" "$LOG_DIR" "$INPUT_DIR" > "$LOG_DIR/pipeline.log" 2>&1 
     #nohup bash -c '. "./run_pipeline.sh"; run_pipeline "$RUN_QC" "$GENOME" "$EXPERIMENT_DIR"' > "$LOG_DIR/pipeline.log" 2>&1 &
 else
     echo "Error: The provided path is not a valid directory."
@@ -77,4 +77,10 @@ fi
 # -add an automated call to gzip input fastqs. this will need to be carefully implemented as it must check completion first.
     # -frankly not sure if this is in the cards
 # -add prompts for user input component selections: do yo want to run fastqc?
-# find a place for log files
+# use runuser for pipeline/script launches
+    # I'll need to get the username somehow.
+    # runuser -l username -c 'nohup script.sh > logfile.txt 2>&1'
+    ## Get the username of the user who launched the script
+    # username=$(whoami)
+    # runuser -l $username -c 'nohup script.sh > logfile.txt 2>&1'
+
