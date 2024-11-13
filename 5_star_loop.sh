@@ -2,6 +2,13 @@
 
 # Set the paths to STAR and the reference genome
 STAR=/usr/bin/STAR
+MAX_LOAD=16.0  # Maximum system load allowed to start the script
+
+# Check if STAR exists
+if [ ! -x "$STAR" ]; then
+  echo "Error: STAR executable not found at $STAR. Please check the path."
+  exit 1
+fi
 
 # Set Reference genome based on species input from pipeline.sh
 if [ "$2" = "mouse" ]; then
@@ -22,6 +29,25 @@ STAR_LOG_DIR="$1/star_logs" # STAR log output files
 
 # Create the output and STAR logs directories if they don't exist
 mkdir -p "$OUTPUT_DIR" "$STAR_LOG_DIR"
+
+# Function to get the current system load (1-minute average)
+get_current_load() {
+  # Extract the first value from /proc/loadavg which represents the 1-minute load average
+  awk '{print $1}' /proc/loadavg
+}
+
+# Wait until the system load is below the maximum allowed load
+while true; do
+  current_load=$(get_current_load)
+  # Compare current load with the maximum load
+  if (( $(echo "$current_load < $MAX_LOAD" | bc -l) )); then
+    echo "System load ($current_load) is under the threshold ($MAX_LOAD). Proceeding..."
+    break
+  else
+    echo "System load ($current_load) is above the threshold ($MAX_LOAD). Waiting..."
+    sleep 60  # Wait before checking the load again
+  fi
+done
 
 # Loop over the fastq files in the input directory
 for file in "$INPUT_DIR"/*_R1.fastq; do
