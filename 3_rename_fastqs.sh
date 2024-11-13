@@ -3,7 +3,7 @@
 # Set the directory containing the files
 INPUT_DIR="$1"
 
-# Loop through all files ending with _001.fastq.gz
+# Loop through all files ending with _001.fastq.gz (this is the flow cell number. could also be 002)
 for file in "$INPUT_DIR"/*_001.fastq.gz
 do
     ## Extract the filename without the path
