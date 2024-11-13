@@ -9,10 +9,20 @@ read -e -p "directory path: " file_path
 
 PIPELINE_LAUNCH="/bobross/jdearborn/shell_scripts/Bulk_RNA_seq/pipeline/2_run_pipeline.sh"
 
-if [ -d "$file_path" ]; then
-    echo "The directory path is: $file_path"
-    INPUT_DIR="$file_path" #use for rename, fastqc
-    EXPERIMENT_DIR=$(dirname "$file_path")  # pass this to scripts
+# Check if the provided path ends with /fastq, if not, create a fastq directory and move the files
+if [[ ! "$file_path" =~ /fastq$ ]]; then
+    mkdir -p "$file_path/fastq"
+    mv "$file_path"/*fastq "$file_path/fastq"
+    file_path_fastq="$file_path/fastq"
+else
+    file_path_fastq="$file_path"
+fi
+
+# Check if the provided path is a directory
+if [ -d "$file_path_fastq" ]; then
+    echo "The directory path is: $file_path_fastq"
+    INPUT_DIR="$file_path_fastq" #use for rename, fastqc
+    EXPERIMENT_DIR=$(dirname "$file_path_fastq")  # pass this to scripts
     echo "EXPERIMENT_DIR: $EXPERIMENT_DIR"
     
     # Prompt the user to enter a species for alignment and feature counts
