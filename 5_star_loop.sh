@@ -2,7 +2,7 @@
 
 # Set the paths to STAR and the reference genome
 STAR=/usr/bin/STAR
-MAX_LOAD=12.0  # Maximum system load allowed to start the script
+MAX_LOAD=16.0  # Maximum system load allowed to start the script
 
 # Check if STAR exists
 if [ ! -x "$STAR" ]; then
