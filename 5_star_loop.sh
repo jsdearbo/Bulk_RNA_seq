@@ -2,7 +2,7 @@
 
 # Set the paths to STAR and the reference genome
 STAR=/usr/bin/STAR
-MAX_LOAD=16.0  # Maximum system load allowed to start the script
+MAX_LOAD=12.0  # Maximum system load allowed to start the script
 
 # Check if STAR exists
 if [ ! -x "$STAR" ]; then
@@ -72,7 +72,7 @@ for file in "$INPUT_DIR"/*_R1.fastq; do
   # Run STAR alignment if output BAM file does not already exist
   if [ ! -f "$output_bam" ]; then
     $STAR \
-      --runThreadN 16 \
+      --runThreadN 24 \
       --genomeDir "$REF_GENOME" \
       --readFilesIn "$r1" "$r2" \
       --outFileNamePrefix "$OUTPUT_DIR/$sample" \
