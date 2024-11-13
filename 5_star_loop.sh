@@ -43,13 +43,13 @@ for file in "$INPUT_DIR"/*_R1.fastq; do
   echo "sample: $sample"
 
   # Run STAR alignment
-  if [ ! -f "$OUTPUT_DIR/$sample"* ]; then
+  if [ ! -f "$OUTPUT_DIR/${sample}.bam" ]; then
     $STAR \
       --runThreadN 16 \
       --genomeDir "$REF_GENOME" \
       --readFilesIn "$r1" "$r2" \
       --outFileNamePrefix "$OUTPUT_DIR/$sample" \
-      --outSAMtype BAM SortedByCoordinate \
+      --outSAMtype BAM SortedByCoordinate
 
   else
     echo "Skipping $sample as an alignment already exists in the output directory."
