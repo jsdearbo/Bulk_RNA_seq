@@ -4,7 +4,7 @@
 INPUT_DIR="$1"
 
 # Loop through all files ending with _001.fastq.gz (this is the flow cell number. could also be 002)
-for file in "$INPUT_DIR"/*_001.fastq.gz
+for file in "$INPUT_DIR"
 do
     # Check if the file matches the desired patterns
     if [[ "$file" == *_001.fastq.gz ]] || [[ "$file" == *_001.fastq ]]; then
