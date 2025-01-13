@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Carry in user input variables. 
 # This is necessary to run the whole pipeline via a nested nohup call.
 RUN_QC="$1"
