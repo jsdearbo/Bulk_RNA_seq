@@ -2,9 +2,10 @@
 
 # Set the directory containing the files
 INPUT_DIR="$1"
+echo "Input directory: $INPUT_DIR"
 
 # Loop through all files ending with _001.fastq.gz (this is the flow cell number. could also be 002)
-for file in "$INPUT_DIR"
+for file in "$INPUT_DIR"/*_001.fastq*
 do
     # Check if the file matches the desired patterns
     if [[ "$file" == *_001.fastq.gz ]] || [[ "$file" == *_001.fastq ]]; then
