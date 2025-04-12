@@ -16,8 +16,14 @@ do
         prefix=$(echo "$filename" | cut -d'_' -f1)
         read_number=$(echo "$filename" | cut -d'_' -f3 | cut -c1-2)
 
-        # Construct the new filename based on the file extension
-        extension="${filename##*.}"
+        # Determine the correct extension
+        if [[ "$filename" == *.fastq.gz ]]; then
+            extension="fastq.gz"
+        elif [[ "$filename" == *.fastq ]]; then
+            extension="fastq"
+        fi
+
+        # Construct the new filename
         new_filename="$INPUT_DIR/${prefix}_${read_number}.${extension}"
 
         # Show the new filename for confirmation
