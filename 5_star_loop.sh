@@ -12,7 +12,7 @@ fi
 
 # Set Reference genome based on species input from pipeline.sh
 if [ "$2" = "mouse" ]; then
-  REF_GENOME="/bobross/STAR_Metadata/mouse/STAR"
+  REF_GENOME="/bobross/STAR_Metadata/mouse_GRCm39/STAR" # updated 4/10/25
 elif [ "$2" = "human" ]; then
   REF_GENOME="/bobross/STAR_Metadata/human/STAR"
 else
@@ -67,7 +67,7 @@ while true; do
       # Run STAR alignment if output BAM file does not already exist
       if [ ! -f "$output_bam" ]; then
         $STAR \
-          --runThreadN 24 \
+          --runThreadN 16 \
           --genomeDir "$REF_GENOME" \
           --readFilesIn "$r1" "$r2" \
           --outFileNamePrefix "$OUTPUT_DIR/$sample" \
