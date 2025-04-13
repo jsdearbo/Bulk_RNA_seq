@@ -7,7 +7,7 @@ summary_folder="$output_folder/summaries"
 
 # Set Reference annotation file based on species input from pipeline.sh
 if [ "$2" = "mouse" ]; then
-  gtf_file=/bobross/STAR_Metadata/mouse/gencode.vM30.annotation.gtf
+  gtf_file=/bobross/STAR_Metadata/mouse_GRCm39/gencode.vM36.basic.annotation.gtf
 elif [ "$2" = "human" ]; then
   gtf_file=/bobross/STAR_Metadata/human/gencode.v46.primary_assembly.annotation.gtf
 else
